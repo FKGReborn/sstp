@@ -1,4 +1,4 @@
-# sstp-client for linux
+# sstp-client for linux ubuntu/debian
 
 
 # INSTALL
