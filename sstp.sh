@@ -4,7 +4,7 @@ clear
 host2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $1}')" 
 user2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $2}')" 
 pass2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $3}')" 
-echo "sstp-client linux"
+figlet -c SSTP-CLIENT
 echo "1. Sett Profile"
 echo "2. Start Inject"
 echo "3. Stop Inject"
