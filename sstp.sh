@@ -4,15 +4,13 @@ clear
 host2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $1}')" 
 user2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $2}')" 
 pass2="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $3}')" 
-echo "Inject sstp by wegare"
+echo "sstp-client linux"
 echo "1. Sett Profile"
 echo "2. Start Inject"
 echo "3. Stop Inject"
-echo "4. Enable auto booting & auto rekonek"
-echo "5. Disable auto booting & auto rekonek"
 echo "e. exit"
-read -p "(default tools: 2) : " tools
-[ -z "${tools}" ] && tools="2"
+read -p "(default tools: e) : " tools
+[ -z "${tools}" ] && tools="e"
 if [ "$tools" = "1" ]; then
 
 echo "Masukkan bug.com.host:port" 
@@ -45,7 +43,6 @@ host="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $1}')"
 user="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $2}')" 
 pass="$(cat /root/akun/sstp.txt | tr '\n' ' '  | awk '{print $3}')" 
 route="$(cat /root/akun/ipmodem.txt | grep -i ipmodem | cut -d= -f2 | tail -n1)"
-sleep 1
 sstpc --cert-warn --password $pass --user $user --save-server-route --tls-ext $host require-mschap-v2 refuse-chap refuse-pap noauth nodeflate &
 echo "is connecting to the internet"
 sleep 10
@@ -72,25 +69,6 @@ killall dnsmasq
 /etc/init.d/dnsmasq start > /dev/null
 sleep 2
 echo "Stop Suksess"
-sleep 2
-clear
-/usr/bin/sstp
-elif [ "${tools}" = "4" ]; then
-cat <<EOF>> /etc/crontabs/root
-# BEGIN AUTOREKONEKSSTP
-*/1 * * * *  autorekonek-sstp
-# END AUTOREKONEKSSTP
-EOF
-sed -i '/^$/d' /etc/crontabs/root 2>/dev/null
-/etc/init.d/cron restart
-echo "Enable Suksess"
-sleep 2
-clear
-/usr/bin/sstp
-elif [ "${tools}" = "5" ]; then
-sed -i "/^# BEGIN AUTOREKONEKSSTP/,/^# END AUTOREKONEKSSTP/d" /etc/crontabs/root > /dev/null
-/etc/init.d/cron restart
-echo "Disable Suksess"
 sleep 2
 clear
 /usr/bin/sstp
